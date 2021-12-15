@@ -32,7 +32,7 @@ public class ArchiveCommand {
         eb.setAuthor(member.getEffectiveName(), link);
         eb.setColor(member.getColor());
         eb.setTimestamp(oldMessage.getTimeCreated());
-        eb.setImage(member.getAvatarUrl());
+        eb.setThumbnail(member.getEffectiveAvatarUrl());
         eb.setDescription(oldMessage.getContentDisplay());
         
         Message newMessage = Main.getSelf().getJDA().getTextChannelById(archiveChannelId).sendMessageEmbeds(eb.build()).complete();
