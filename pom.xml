@@ -29,7 +29,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>io.github.redpanda4552.HifumiBot.HifumiBot</mainClass>
+                            <mainClass>io.github.redpanda4552.LeHistorian.Main</mainClass>
                             <!-- Allows version info from here to be put into MANIFEST.mf. -->
                             <!-- Allows code to later look up the version. -->
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
