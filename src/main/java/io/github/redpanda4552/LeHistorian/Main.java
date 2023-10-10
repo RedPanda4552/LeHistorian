@@ -1,11 +1,9 @@
 package io.github.redpanda4552.LeHistorian;
-import javax.security.auth.login.LoginException;
-
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 public class Main {
@@ -46,18 +44,20 @@ public class Main {
         }
         
         try {
-            jda = JDABuilder.createDefault(discordBotToken).enableIntents(GatewayIntent.GUILD_MEMBERS)
+            jda = JDABuilder.createDefault(discordBotToken).enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.MESSAGE_CONTENT)
                     .setMemberCachePolicy(MemberCachePolicy.ALL).setAutoReconnect(true).build().awaitReady();
-        } catch (LoginException | IllegalArgumentException | InterruptedException e) {
+        } catch (IllegalArgumentException | InterruptedException e) {
             e.printStackTrace();
         }
         
         updateStatus("Starting...");
         jda.addEventListener(new SlashCommandListener());
-        
-        for (Guild guild : getJDA().getGuilds()) {
-            guild.upsertCommand(ArchiveCommand.getArchiveCommandDefinition()).queue();
-        }
+        jda.addEventListener(new MessageCommandListener());
+
+        CommandListUpdateAction update = Main.getSelf().getJDA().updateCommands();
+        update.addCommands(ArchiveCommand.getArchiveCommandDefinition());
+        update.addCommands(MessageCommandListener.getFixTweetCommandData());
+        update.queue();
         
         updateStatus("/archive");
     }

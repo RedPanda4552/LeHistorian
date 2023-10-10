@@ -3,9 +3,10 @@ package io.github.redpanda4552.LeHistorian;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 public class ArchiveCommand {
 
@@ -40,6 +41,7 @@ public class ArchiveCommand {
     }
     
     public static CommandData getArchiveCommandDefinition() {
-        return new CommandData("archive", "Archives a message").addOption(OptionType.STRING, "link", "'Copy Message Link', then paste here", true);
+        return Commands.slash("archive", "Archives a message")
+            .addOption(OptionType.STRING, "link", "'Copy Message Link', then paste here", true);
     }
 }
