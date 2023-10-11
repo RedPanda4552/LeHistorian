@@ -2,6 +2,7 @@ package io.github.redpanda4552.LeHistorian;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
@@ -52,11 +53,10 @@ public class Main {
         
         updateStatus("Starting...");
         jda.addEventListener(new SlashCommandListener());
-        jda.addEventListener(new MessageCommandListener());
+        jda.addEventListener(new MessageEventListener());
 
         CommandListUpdateAction update = Main.getSelf().getJDA().updateCommands();
         update.addCommands(ArchiveCommand.getArchiveCommandDefinition());
-        update.addCommands(MessageCommandListener.getFixTweetCommandData());
         update.queue();
         
         updateStatus("/archive");
