@@ -28,7 +28,7 @@ public class ButtonEventListener extends ListenerAdapter {
 
         switch (parts[0]) {
             case "delete":
-                channel.deleteMessageById(parts[1]).queue();
+                channel.deleteMessageById(event.getMessageId()).queue();
                 break;
             default:
                 break;
