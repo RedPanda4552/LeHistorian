@@ -2,7 +2,6 @@ package io.github.redpanda4552.LeHistorian;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
@@ -45,8 +44,12 @@ public class Main {
         }
         
         try {
-            jda = JDABuilder.createDefault(discordBotToken).enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.MESSAGE_CONTENT)
-                    .setMemberCachePolicy(MemberCachePolicy.ALL).setAutoReconnect(true).build().awaitReady();
+            jda = JDABuilder.createDefault(discordBotToken)
+                    .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.MESSAGE_CONTENT)
+                    .setMemberCachePolicy(MemberCachePolicy.ALL)
+                    .setAutoReconnect(true)
+                    .build()
+                    .awaitReady();
         } catch (IllegalArgumentException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -54,6 +57,7 @@ public class Main {
         updateStatus("Starting...");
         jda.addEventListener(new SlashCommandListener());
         jda.addEventListener(new MessageEventListener());
+        jda.addEventListener(new ButtonEventListener());
 
         CommandListUpdateAction update = Main.getSelf().getJDA().updateCommands();
         update.addCommands(ArchiveCommand.getArchiveCommandDefinition());
