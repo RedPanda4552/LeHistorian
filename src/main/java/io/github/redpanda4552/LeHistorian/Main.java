@@ -34,6 +34,7 @@ public class Main {
     }
     
     private JDA jda;
+    private Scheduler scheduler;
     
     public Main() {
         self = this;
@@ -55,10 +56,11 @@ public class Main {
         }
         
         updateStatus("Starting...");
+        this.scheduler = new Scheduler();
         jda.addEventListener(new SlashCommandListener());
         jda.addEventListener(new MessageEventListener());
         jda.addEventListener(new ButtonEventListener());
-
+        
         CommandListUpdateAction update = Main.getSelf().getJDA().updateCommands();
         update.addCommands(ArchiveCommand.getArchiveCommandDefinition());
         update.queue();
@@ -68,6 +70,10 @@ public class Main {
     
     public JDA getJDA() {
         return jda;
+    }
+
+    public Scheduler getScheduler() {
+        return this.scheduler;
     }
     
     private void updateStatus(String str) {
