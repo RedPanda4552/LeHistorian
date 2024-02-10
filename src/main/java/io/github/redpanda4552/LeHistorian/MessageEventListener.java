@@ -13,6 +13,6 @@ public class MessageEventListener extends ListenerAdapter {
         }
         
         TwitterRunnable runnable = new TwitterRunnable(event.getChannel().getId(), event.getMessageId());
-        Main.getSelf().getScheduler().runOnceDelayed(runnable, 2000);
+        Main.getSelf().getScheduler().runOnce(runnable);
     }
 }
