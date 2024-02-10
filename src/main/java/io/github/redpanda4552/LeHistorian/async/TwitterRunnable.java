@@ -27,12 +27,6 @@ public class TwitterRunnable implements Runnable {
         
         if (channel != null) {
             Message msg = channel.retrieveMessageById(messageId).complete();
-
-            // First check if an embed is present, if so, don't bother.
-            if (!msg.getEmbeds().isEmpty()) {
-                return;
-            }
-
             String contentRaw = msg.getContentRaw();
             String contentFixed = null;
 
