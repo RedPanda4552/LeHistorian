@@ -52,7 +52,8 @@ public class TwitterRunnable implements Runnable {
                         .mentionRepliedUser(false)
                         .addActionRow(
                             Button.link(msg.getJumpUrl(), "Jump to Original Message"),
-                            Button.danger("delete:" + msg.getId(), "Delete")
+                            Button.danger("delete:" + msg.getId(), "Delete Original Message"),
+                            Button.primary("delete-self", "Delete This Message")
                         )
                         .queue();
             }
